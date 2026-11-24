@@ -2,7 +2,15 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1f2f78">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Acreditación VCM">
 <title>Acreditación Seminario VCM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -13,7 +21,8 @@ html,body{min-height:100%}
 body{margin:0;background:var(--bg) url(bg.jpg) center top/cover fixed;color:var(--ink);font:16px/1.5 Roboto,"Helvetica Neue",Arial,sans-serif;overflow-x:clip}
 body::before{content:"";position:fixed;inset:0;background:linear-gradient(180deg,rgba(31,47,120,.15),rgba(25,38,105,.55) 55%,rgba(20,30,90,.85));pointer-events:none;z-index:-1}
 [hidden]{display:none!important}
-.wrap{max-width:580px;margin:0 auto;padding:max(28px,env(safe-area-inset-top)) 22px 48px}
+.wrap{max-width:580px;margin:0 auto;padding:max(28px,env(safe-area-inset-top)) max(22px,env(safe-area-inset-right)) max(48px,env(safe-area-inset-bottom)) max(22px,env(safe-area-inset-left))}
+html,body{overscroll-behavior-y:none}
 .top{margin-bottom:clamp(28px,8vh,80px)}
 .top img{height:54px;width:auto}
 .link{background:none;border:0;color:var(--soft);font:500 14px Roboto,sans-serif;text-decoration:underline;cursor:pointer;min-height:44px;padding:0 4px}
@@ -200,6 +209,7 @@ function success(t,n){$('ovT').textContent=t;$('ovN').textContent=n;$('ov').clas
 function closeOv(){clearTimeout(ovTimer);$('ov').classList.remove('on');resetForm();scrollTo(0,0);}
 $('ov').addEventListener('click',closeOv);
 
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 if(!/^https:\/\//.test(API))status('err','Página sin configurar','Falta la URL de Apps Script en config.js.');
 }
 </script>
