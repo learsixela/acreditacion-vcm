@@ -47,12 +47,14 @@ function setup() {
   r.clear();
   const P = `'${HOJA}'!`;
   const c = k => P + String.fromCharCode(65 + IDX[k]) + '2:' + String.fromCharCode(65 + IDX[k]);
-  r.getRange('A1:B5').setValues([
-    ['Indicador', 'Cantidad'],
-    ['Inscritos previos', `=COUNTIFS(${c('correo')},"<>",${c('preinscrito')},"<>No")`],
-    ['Inscritos que asistieron', `=COUNTIFS(${c('correo')},"<>",${c('preinscrito')},"<>No",${c('asistio')},"Sí")`],
-    ['Registrados en sala', `=COUNTIFS(${c('correo')},"<>",${c('preinscrito')},"No")`],
-    ['Total asistentes', `=COUNTIFS(${c('correo')},"<>",${c('asistio')},"Sí")`],
+  // setFormulas usa siempre la sintaxis en inglés (comas), sin importar la configuración regional.
+  r.getRange('A1:A5').setValues([['Indicador'], ['Inscritos previos'], ['Inscritos que asistieron'], ['Registrados en sala'], ['Total asistentes']]);
+  r.getRange('B1').setValue('Cantidad');
+  r.getRange('B2:B5').setFormulas([
+    [`=COUNTIFS(${c('correo')},"<>",${c('preinscrito')},"<>No")`],
+    [`=COUNTIFS(${c('correo')},"<>",${c('preinscrito')},"<>No",${c('asistio')},"Sí")`],
+    [`=COUNTIFS(${c('correo')},"<>",${c('preinscrito')},"No")`],
+    [`=COUNTIFS(${c('correo')},"<>",${c('asistio')},"Sí")`],
   ]);
   r.getRange('A1:B1').setFontWeight('bold');
   r.autoResizeColumns(1, 2);
