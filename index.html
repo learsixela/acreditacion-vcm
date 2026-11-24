@@ -124,7 +124,7 @@ async function api(data){
   finally{clearTimeout(t);}
 }
 const ERR={config:['Página sin configurar','Falta la URL de Apps Script en config.js.'],red:['No se pudo conectar con el servidor','Revise el internet del dispositivo. Si hay internet, el Apps Script no está publicado con acceso para «Cualquier usuario».'],timeout:['El servidor tardó demasiado','Intente de nuevo.'],clave:['Clave incorrecta','La CLAVE de config.js no coincide con la de Apps Script.'],ocupado:['Servidor ocupado','Muchas acreditaciones al mismo tiempo: intente de nuevo.'],servidor:['Error en el servidor','Intente de nuevo; si persiste, avise al equipo organizador.']};
-function showErr(e){const k=(e&&e.error)||'servidor';const m=ERR[k]||ERR.servidor;status('err',m[0],m[1]);}
+function showErr(e){const k=(e&&e.error)||'servidor';const m=ERR[k]||ERR.servidor;status('err',m[0],m[1]+(e&&e.detalle?' (Detalle: '+e.detalle+')':''));}
 
 /* ---------- rol ---------- */
 function getRol(){const r=document.querySelector('input[name=rol]:checked');return r?r.value:'';}
