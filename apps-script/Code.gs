@@ -47,15 +47,22 @@ function setup() {
   r.clear();
   const P = `'${HOJA}'!`;
   const c = k => P + String.fromCharCode(65 + IDX[k]) + '2:' + String.fromCharCode(65 + IDX[k]);
-  // setFormulas usa siempre la sintaxis en inglés (comas), sin importar la configuración regional.
   r.getRange('A1:A5').setValues([['Indicador'], ['Inscritos previos'], ['Inscritos que asistieron'], ['Registrados en sala'], ['Total asistentes']]);
   r.getRange('B1').setValue('Cantidad');
-  r.getRange('B2:B5').setFormulas([
-    [`=COUNTIFS(${c('correo')},"<>",${c('preinscrito')},"<>No")`],
-    [`=COUNTIFS(${c('correo')},"<>",${c('preinscrito')},"<>No",${c('asistio')},"Sí")`],
-    [`=COUNTIFS(${c('correo')},"<>",${c('preinscrito')},"No")`],
-    [`=COUNTIFS(${c('correo')},"<>",${c('asistio')},"Sí")`],
-  ]);
+  const F = [
+    `=COUNTIFS(${c('correo')},"<>",${c('preinscrito')},"<>No")`,
+    `=COUNTIFS(${c('correo')},"<>",${c('preinscrito')},"<>No",${c('asistio')},"Sí")`,
+    `=COUNTIFS(${c('correo')},"<>",${c('preinscrito')},"No")`,
+    `=COUNTIFS(${c('correo')},"<>",${c('asistio')},"Sí")`,
+  ];
+  // Algunas configuraciones regionales (p. ej. España) exigen ";" como separador: se prueba con
+  // comas y, si la planilla no las acepta, se reescriben con punto y coma.
+  const cel = r.getRange('B2:B5');
+  cel.setFormulas(F.map(f => [f]));
+  SpreadsheetApp.flush();
+  if (cel.getDisplayValues().some(v => /^#/.test(v[0]))) {
+    cel.setFormulas(F.map(f => [f.replace(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/g, ';')]));
+  }
   r.getRange('A1:B1').setFontWeight('bold');
   r.autoResizeColumns(1, 2);
 }
