@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Acreditación Seminario VCM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#1f2f78;--ink:#fff;--soft:#c9d4f5;--line:#2a9df4;--btn:#1d4f9e;--ok:#1f9d63;--warn:#ffcf5c;--err:#ff8a8a}
+*{box-sizing:border-box;min-width:0}
+html,body{min-height:100%}
+body{margin:0;background:var(--bg) url(bg.jpg) center top/cover fixed;color:var(--ink);font:16px/1.5 Roboto,"Helvetica Neue",Arial,sans-serif;overflow-x:clip}
+body::before{content:"";position:fixed;inset:0;background:linear-gradient(180deg,rgba(31,47,120,.15),rgba(25,38,105,.55) 55%,rgba(20,30,90,.85));pointer-events:none;z-index:-1}
+[hidden]{display:none!important}
+.wrap{max-width:580px;margin:0 auto;padding:max(28px,env(safe-area-inset-top)) 22px 48px}
+.top{margin-bottom:clamp(28px,8vh,80px)}
+.top img{height:54px;width:auto}
+.link{background:none;border:0;color:var(--soft);font:500 14px Roboto,sans-serif;text-decoration:underline;cursor:pointer;min-height:44px;padding:0 4px}
+.kicker{font:300 clamp(24px,5vw,32px)/1.1 Poppins,sans-serif;margin:0 0 6px}
+h1{font:600 clamp(24px,5.4vw,34px)/1.15 Poppins,sans-serif;margin:0 0 30px;text-wrap:balance}
+.fld{margin-bottom:20px;position:relative}
+label,.lab{display:block;font-size:17px;margin:0 0 7px 3px}
+.box{display:flex;background:#fff;border:3px solid var(--line);border-radius:8px;overflow:hidden}
+.box:focus-within{box-shadow:0 0 0 3px rgba(255,255,255,.55)}
+.box input{flex:1;border:0;outline:0;font:17px Roboto,sans-serif;color:#13204f;padding:12px 14px;min-height:50px;background:#fff}
+.box input[readonly]{background:#eef2fb;color:#4a5680}
+.lupa{flex:none;width:54px;border:0;background:#fff;cursor:pointer;display:grid;place-items:center}
+.lupa svg{width:28px;height:28px;stroke:#1e7fd6;fill:none;stroke-width:2.2}
+.lupa.spin svg{animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.sug{position:absolute;left:0;right:0;top:100%;z-index:5;background:#fff;color:#13204f;border-radius:0 0 8px 8px;box-shadow:0 12px 30px rgba(0,0,0,.35);max-height:300px;overflow:auto;margin-top:-4px}
+.sug button{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid #e3e8f5;background:#fff;padding:11px 14px;font:16px Roboto,sans-serif;color:#13204f;cursor:pointer;min-height:48px}
+.sug button:hover,.sug button:focus{background:#e8f1fd;outline:0}
+.sug small{display:block;color:#5b6690;font-size:13px}
+.sug .none{padding:12px 14px;font-size:14px;color:#5b6690}
+.roles{display:flex;flex-wrap:wrap;gap:10px}
+.roles label{margin:0;display:flex;align-items:center;gap:8px;border:2px solid var(--line);border-radius:999px;padding:0 18px;min-height:46px;cursor:pointer;font-size:16px;background:rgba(29,79,158,.55)}
+.roles input{position:absolute;opacity:0;pointer-events:none}
+.roles label:has(input:checked){background:#fff;color:#13204f;font-weight:700}
+.roles label:has(input:focus-visible){outline:3px solid #fff}
+#otroBox{margin-top:10px}
+.status{border-radius:8px;padding:12px 14px;margin:0 0 22px;font-size:15px;display:none;background:rgba(255,255,255,.12);border-left:5px solid var(--line)}
+.status.on{display:block}
+.status.ok{border-color:#5be3a1}.status.warn{border-color:var(--warn)}.status.err{border-color:var(--err)}
+.status b{display:block}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,4vw,34px);margin-top:34px}
+.btn{min-height:58px;border:3px solid var(--line);border-radius:8px;background:var(--btn);color:#fff;font:700 18px Roboto,sans-serif;letter-spacing:.04em;cursor:pointer}
+.btn:hover{background:#2360bd}.btn:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.btn:disabled{opacity:.5;cursor:wait}
+.hint{color:var(--soft);font-size:14px;margin:14px 2px 0;text-align:center}
+label:has(.clear){display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px 12px}.clear{min-height:32px;margin:-6px 0}
+.ov{position:fixed;inset:0;background:rgba(14,24,72,.94);display:none;place-items:center;text-align:center;padding:24px;z-index:20}
+.ov.on{display:grid}
+.ov .ck{width:120px;height:120px;border-radius:50%;background:var(--ok);display:grid;place-items:center;margin:0 auto 22px;animation:pop .35s ease-out}
+.ov .ck svg{width:64px;height:64px;stroke:#fff;stroke-width:4;fill:none}
+.ov h2{font:600 clamp(26px,6vw,38px)/1.1 Poppins,sans-serif;margin:0 0 8px}
+.ov p{margin:0;color:var(--soft);font-size:18px}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+@media(prefers-reduced-motion:reduce){.ov .ck,.lupa.spin svg{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><img src="logo_cruch.png" alt="CRUCH"></div>
+  <p class="kicker">SEMINARIO DE:</p>
+  <h1>Experiencias y mecanismos de articulación de la Vinculación con el Medio: hallazgos y buenas prácticas</h1>
+
+  <div id="st" class="status" role="status" aria-live="polite"><b id="stT"></b><span id="stM"></span></div>
+
+  <form id="f" autocomplete="off" novalidate>
+    <div class="fld"><label for="nombre">Nombre completo</label>
+      <div class="box"><input id="nombre" data-s="nombre"></div><div class="sug" hidden></div></div>
+    <div class="fld"><label for="correo">Correo institucional <button type="button" class="link clear" id="limpiar" hidden>Limpiar y atender a otra persona</button></label>
+      <div class="box"><input id="correo" type="email" inputmode="email" autocapitalize="off" data-s="correo"><button class="lupa" type="button" aria-label="Buscar por correo" data-for="correo"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6"/></svg></button></div><div class="sug" hidden></div></div>
+    <div class="fld"><label for="institucion">Universidad / Institución / Organización</label>
+      <div class="box"><input id="institucion" data-s="institucion"><button class="lupa" type="button" aria-label="Buscar por institución" data-for="institucion"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6"/></svg></button></div><div class="sug" hidden></div></div>
+    <div class="fld"><label for="unidad">Unidad a la que pertenece</label><div class="box"><input id="unidad"></div></div>
+    <div class="fld"><label for="cargo">Cargo que cumple en su universidad / institución / organización</label><div class="box"><input id="cargo"></div></div>
+    <div class="fld"><span class="lab" id="rolLab">Rol</span>
+      <div class="roles" role="radiogroup" aria-labelledby="rolLab">
+        <label><input type="radio" name="rol" value="Expositor">Expositor</label>
+        <label><input type="radio" name="rol" value="Asistente">Asistente</label>
+        <label><input type="radio" name="rol" value="Otro">Otro</label>
+      </div>
+      <div class="box" id="otroBox" hidden><input id="rolOtro" disabled placeholder="Especifique el rol" aria-label="Especifique el rol"></div>
+    </div>
+    <div class="btns">
+      <button class="btn" type="button" id="bConf">CONFIRMAR</button>
+      <button class="btn" type="button" id="bReg">REGISTRAR</button>
+    </div>
+    <p class="hint">¿Ya se inscribió? Búsquese por correo, nombre o institución y presione <b>Confirmar</b>.<br>¿No se inscribió? Complete todos los datos y presione <b>Registrar</b>.</p>
+  </form>
+</div>
+
+<div class="ov" id="ov" role="dialog" aria-modal="true" aria-labelledby="ovT"><div>
+  <div class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+  <h2 id="ovT"></h2><p id="ovN"></p><p style="margin-top:22px;font-size:15px">Toque la pantalla para continuar</p>
+</div></div>
+
+<script src="config.js"></script>
+<script>
+{
+const CFG=window.ACRED_CONFIG||{};
+const API=CFG.API_URL||'';
+const $=id=>document.getElementById(id);
+const F=['nombre','correo','institucion','unidad','cargo'];
+const EMAIL=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+let current=null,busy=false,ovTimer=0,seq=0;
+const norm=s=>(s||'').toString().normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim();
+
+function status(kind,t,m){$('st').className='status on '+kind;$('stT').textContent=t;$('stM').textContent=m||'';}
+function clearStatus(){$('st').className='status';}
+
+/* ---------- API ---------- */
+async function api(data){
+  if(!/^https:\/\//.test(API))throw{error:'config'};
+  const body=JSON.stringify({...data,clave:CFG.CLAVE||''});
+  const ctrl=new AbortController(),t=setTimeout(()=>ctrl.abort(),20000);
+  try{
+    const r=await fetch(API,{method:'POST',body,signal:ctrl.signal}); // text/plain: sin preflight CORS
+    const j=await r.json();return j;
+  }catch(e){throw{error:e&&e.name==='AbortError'?'timeout':'red'};}
+  finally{clearTimeout(t);}
+}
+const ERR={config:['Página sin configurar','Falta la URL de Apps Script en config.js.'],red:['Sin conexión','Revise el internet de este dispositivo e intente de nuevo.'],timeout:['El servidor tardó demasiado','Intente de nuevo.'],clave:['Clave incorrecta','La CLAVE de config.js no coincide con la de Apps Script.'],ocupado:['Servidor ocupado','Muchas acreditaciones al mismo tiempo: intente de nuevo.'],servidor:['Error en el servidor','Intente de nuevo; si persiste, avise al equipo organizador.']};
+function showErr(e){const k=(e&&e.error)||'servidor';const m=ERR[k]||ERR.servidor;status('err',m[0],m[1]);}
+
+/* ---------- rol ---------- */
+function getRol(){const r=document.querySelector('input[name=rol]:checked');return r?r.value:'';}
+function toggleOtro(){const on=getRol()==='Otro';$('otroBox').hidden=!on;$('rolOtro').disabled=!on;if(!on)$('rolOtro').value='';}
+function setRol(v,otro){
+  if(v&&!['Expositor','Asistente','Otro'].includes(v)){otro=otro||v;v='Otro';}
+  document.querySelectorAll('input[name=rol]').forEach(r=>r.checked=r.value===v);toggleOtro();if(v==='Otro')$('rolOtro').value=otro||'';}
+document.querySelectorAll('input[name=rol]').forEach(r=>r.addEventListener('change',()=>{toggleOtro();if(getRol()==='Otro')$('rolOtro').focus();}));
+
+/* ---------- formulario ---------- */
+function readForm(){const o={};F.forEach(k=>o[k]=$(k).value.trim().replace(/\s+/g,' '));o.correo=o.correo.toLowerCase();o.rol=getRol();o.rolOtro=o.rol==='Otro'?$('rolOtro').value.trim():'';return o;}
+function validate(o){const m=[];if(!o.nombre)m.push('nombre');if(!EMAIL.test(o.correo))m.push('correo válido');if(!o.institucion)m.push('institución');if(!o.unidad)m.push('unidad');if(!o.cargo)m.push('cargo');if(!o.rol)m.push('rol');if(o.rol==='Otro'&&!o.rolOtro)m.push('especificar el rol');return m;}
+function resetForm(){current=null;F.forEach(k=>$(k).value='');$('correo').readOnly=false;setRol('','');$('limpiar').hidden=true;clearStatus();hideSug();}
+function loadPerson(p){
+  current=p;F.forEach(k=>$(k).value=p[k]||'');setRol(p.rol||'',p.rolOtro);$('correo').readOnly=true;$('limpiar').hidden=false;hideSug();
+  if(p.asistio)status('warn','Asistencia ya confirmada'+(p.hora?' a las '+p.hora:''),'No es necesario volver a confirmar. Si corrige datos, presione Confirmar para guardarlos.');
+  else status('ok','Persona inscrita encontrada','Revise y complete los datos que falten, luego presione CONFIRMAR.');
+  const first=['unidad','cargo'].find(k=>!$(k).value);if(first)$(first).focus();}
+$('limpiar').addEventListener('click',()=>{resetForm();$('nombre').focus();});
+
+/* ---------- búsqueda ---------- */
+function hideSug(){document.querySelectorAll('.sug').forEach(s=>{s.hidden=true;s.textContent='';});}
+function showSug(field,list,explicit){
+  const box=$(field).closest('.fld').querySelector('.sug');hideSug();
+  if(!list.length){if(!explicit)return;const d=document.createElement('div');d.className='none';d.textContent='No hay inscritos que coincidan. Si la persona no se inscribió, complete los datos y presione REGISTRAR.';box.append(d);box.hidden=false;return;}
+  list.forEach(p=>{const b=document.createElement('button');b.type='button';b.textContent=p.nombre||p.correo;const s=document.createElement('small');s.textContent=[p.correo,p.institucion].filter(Boolean).join(' · ')+(p.asistio?' · ya confirmado':'');b.append(s);b.addEventListener('click',()=>loadPerson(p));box.append(b);});
+  box.hidden=false;}
+async function search(field,explicit){
+  if(current)return;const q=$(field).value.trim();
+  if(norm(q).length<(explicit?2:3)){hideSug();if(explicit)status('warn','Escriba al menos 2 letras para buscar','');return;}
+  const my=++seq,lupa=document.querySelector(`.lupa[data-for=${field}]`);lupa&&lupa.classList.add('spin');
+  try{const j=await api({action:'buscar',campo:field,q});if(my!==seq||current)return;
+    if(!j.ok)return showErr(j);
+    const items=j.items||[];
+    if(field==='correo'&&explicit){const ex=items.find(p=>p.correo===q.toLowerCase());if(ex)return loadPerson(ex);}
+    if(explicit)clearStatus();showSug(field,items,explicit);}
+  catch(e){if(my===seq&&explicit)showErr(e);}
+  finally{lupa&&lupa.classList.remove('spin');}}
+let deb=0;
+document.querySelectorAll('input[data-s]').forEach(inp=>{
+  inp.addEventListener('input',()=>{if(current)return;clearTimeout(deb);deb=setTimeout(()=>search(inp.dataset.s,false),450);});
+  inp.addEventListener('keydown',e=>{if(e.key==='Escape')hideSug();if(e.key==='Enter'){e.preventDefault();clearTimeout(deb);search(inp.dataset.s,true);}});});
+document.querySelectorAll('.lupa').forEach(b=>b.addEventListener('click',()=>{clearTimeout(deb);search(b.dataset.for,true);}));
+document.addEventListener('click',e=>{if(!e.target.closest('.fld'))hideSug();});
+
+/* ---------- acciones ---------- */
+function lock(on,btn,txt){busy=on;$('bConf').disabled=on;$('bReg').disabled=on;btn.textContent=on?'GUARDANDO…':txt;}
+$('bConf').addEventListener('click',async()=>{
+  if(busy)return;hideSug();
+  if(!current){status('warn','Primero busque a la persona','Use la lupa del correo o de la institución, o escriba su nombre. Si no aparece, complete los datos y presione REGISTRAR.');return;}
+  const o=readForm(),m=validate(o);if(m.length){status('warn','Faltan datos','Complete: '+m.join(', ')+'.');return;}
+  lock(true,$('bConf'),'CONFIRMAR');
+  try{const j=await api({action:'confirmar',...o});
+    if(j.ok)success(j.yaConfirmado?'Datos actualizados':'Asistencia confirmada',o.nombre);
+    else if(j.error==='no_inscrito'){current=null;$('correo').readOnly=false;$('limpiar').hidden=true;status('warn','No encontramos esa inscripción','Revise el correo o presione REGISTRAR para inscribir a la persona.');}
+    else if(j.error==='faltan')status('warn','Faltan datos','Complete todos los campos.');
+    else showErr(j);}
+  catch(e){showErr(e);}
+  finally{lock(false,$('bConf'),'CONFIRMAR');}});
+$('bReg').addEventListener('click',async()=>{
+  if(busy)return;hideSug();
+  if(current){status('warn','Esta persona ya está inscrita','Presione CONFIRMAR para registrar su asistencia.');return;}
+  const o=readForm(),m=validate(o);if(m.length){status('warn','Faltan datos','Complete: '+m.join(', ')+'.');return;}
+  lock(true,$('bReg'),'REGISTRAR');
+  try{const j=await api({action:'registrar',...o});
+    if(j.ok)success('Registro completado',o.nombre);
+    else if(j.error==='existe'&&j.persona){loadPerson(j.persona);status('warn','Ese correo ya está inscrito','Cargamos sus datos: revise y presione CONFIRMAR.');}
+    else if(j.error==='faltan')status('warn','Faltan datos','Complete todos los campos.');
+    else showErr(j);}
+  catch(e){showErr(e);}
+  finally{lock(false,$('bReg'),'REGISTRAR');}});
+function success(t,n){$('ovT').textContent=t;$('ovN').textContent=n;$('ov').classList.add('on');clearTimeout(ovTimer);ovTimer=setTimeout(closeOv,4000);}
+function closeOv(){clearTimeout(ovTimer);$('ov').classList.remove('on');resetForm();scrollTo(0,0);}
+$('ov').addEventListener('click',closeOv);
+
+if(!/^https:\/\//.test(API))status('err','Página sin configurar','Falta la URL de Apps Script en config.js.');
+}
+</script>
+</body>
+</html>
